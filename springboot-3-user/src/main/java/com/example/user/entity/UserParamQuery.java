@@ -25,8 +25,6 @@ public class UserParamQuery {
 
     private String userName;
 
-    private String nameAndAccount;
-
     private PageParam<UserPo> page;
 
 }

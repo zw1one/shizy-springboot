@@ -4,7 +4,6 @@ import com.example.common.json.JsonResult;
 import com.example.common.json.JsonResultEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -13,22 +12,21 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 import java.util.List;
 
 /**
  * 全局异常处理类
- *
+ * <p>
  * http://www.mydlq.club/article/49/
  */
 @Configuration
 @Slf4j
-//@RestControllerAdvice("com.example.*")
+//@RestControllerAdvice("com.example.*.controller")//这个路径怎么配都不生效
 @RestControllerAdvice
-@ControllerAdvice
 public class GlobalExceptionHandler {
 
     /**
@@ -88,7 +86,7 @@ public class GlobalExceptionHandler {
      * @return ResponseInfo
      */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(MyException.class)
+    @ExceptionHandler({MyException.class})
     public JsonResult myExceptionHandler(MyException e) {
         log.error("", e);
         // 判断异常中是否有错误信息，如果存在就使用异常中的消息，否则使用默认消息

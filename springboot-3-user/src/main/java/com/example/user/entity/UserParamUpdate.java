@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * <p>
  *
@@ -20,13 +22,12 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserParamUpdate {
 
+    @NotBlank(message = "userId cannot be null!")
     @Schema(description = "用户id", example = "123")
     private String userId;
 
     private String userAccount;
 
     private String userName;
-
-    private String nameAndAccount;
 
 }

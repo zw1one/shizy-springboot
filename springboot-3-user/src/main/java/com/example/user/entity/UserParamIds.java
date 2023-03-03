@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -20,13 +23,10 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserParamAdd {
+public class UserParamIds {
 
-    @Schema(description = "用户id", example = "123")
-    @NotBlank(message = "userAccount cannot be null!")
-    private String userAccount;
-
-    @NotBlank(message = "userName cannot be null!")
-    private String userName;
+    @NotEmpty(message = "userIds cannot be null!")
+    @Schema(description = "用户ids", example = "")
+    private List<String> userIds;
 
 }

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.exception.MyException;
+import com.example.common.exception.MyExceptionUtil;
 import com.example.user.entity.*;
 import com.example.user.mapper.UserMapper;
 import com.example.user.service.UserService;
@@ -12,6 +13,8 @@ import com.example.utils.bean.MyBeanUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -54,45 +57,46 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPo> implements 
         return MyBeanUtils.copyProperties(userPo, new UserVo());
     }
 
+    @Transactional(propagation= Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
     public UserVo add(UserParamAdd param) {
         log.info("request: [user] - add param={}", param);
-        String id = IdWorker.get32UUID();//todo shizy 研究一下id
+        String id = IdWorker.get32UUID();
         UserPo userPo = MyBeanUtils.copyProperties(param, new UserPo());
         userPo.setUserId(id);
         if (!super.save(userPo)) {
-            throw new MyException("user save fail");
+            MyExceptionUtil.throwException("user save fail");
         }
         return this.queryDetail(id);
     }
 
+    @Transactional(propagation= Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
     public UserVo updateById(UserParamUpdate param) {
         log.info("request: [user] - updateById param={}", param);
-        //todo shizy controller层判空id
         UserPo userPo = MyBeanUtils.copyProperties(param, new UserPo());
         if (!super.updateById(userPo)) {
-            throw new MyException("user updateById fail");
+            MyExceptionUtil.throwException("user updateById fail");
         }
         return this.queryDetail(param.getUserId());
     }
 
+    @Transactional(propagation= Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
     public boolean delete(String id) {
         log.info("request: [user] - delete id={}", id);
-        //todo shizy controller层判空id
         if (!super.removeById(id)) {
-            throw new MyException("user removeById fail");
+            MyExceptionUtil.throwException("user removeById fail");
         }
         return true;
     }
 
+    @Transactional(propagation= Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
     public boolean deleteBatch(List<String> ids) {
         log.info("request: [user] - deleteBatch ids={}", ids);
-        //todo shizy controller层判空id
         if (!super.removeBatchByIds(ids, 500)) {
-            throw new MyException("user removeBatchByIds fail");
+            MyExceptionUtil.throwException("user removeBatchByIds fail");
         }
         return true;
     }

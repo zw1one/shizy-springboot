@@ -1,5 +1,7 @@
 package com.example.common.json;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.utils.bean.MyBeanUtils;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +28,11 @@ public class JsonResult<T> implements Serializable {
     }
 
     public static <T> JsonResult<T> success(T data) {
+        //处理PageVo
+        if(data instanceof Page){
+            return new JsonResult(200, "success", MyBeanUtils.copyProperties(data, new PageVo<>()));
+        }
+        //正常返回
         return new JsonResult<T>(200, "success", data);
     }
 

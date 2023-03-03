@@ -8,16 +8,16 @@ spring:
 ### mybatis-plus
 mybatis-plus:
   typeAliasesPackage: com.example.*.entity
-  mapper-locations: classpath:mapper/*Mapper.xml
+  mapper-locations: classpath:mapper/**/*Mapper.xml # 扫描resource下的mapper 路径配错了就 Invalid bound statement (not found)
 #  global-config:
 #    id-type: 3 #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
 #    field-strategy: 2 #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
 #    db-column-underline: true #驼峰下划线转换
 #    refresh-mapper: true #刷新mapper 调试神器
-#  #    logic-delete-value: 1 #逻辑删除配置 1:删除 0：未删除
-#  #    logic-not-delete-value: 0
-#  #    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector #自定义SQL注入器 逻辑删除SQL注入器
-#  configuration: # 原生配置
+  #    logic-delete-value: 1 #逻辑删除配置 1:删除 0：未删除
+  #    logic-not-delete-value: 0
+  #    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector #自定义SQL注入器 逻辑删除SQL注入器
+  configuration: # 原生配置
 #    map-underscore-to-camel-case: true
 #    cache-enabled: false
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 日志输出sql语句
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 日志输出sql语句

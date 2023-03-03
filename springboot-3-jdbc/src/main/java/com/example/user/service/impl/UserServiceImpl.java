@@ -42,10 +42,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPo> implements 
     @Override
     public Page<UserPo> queryListBySQL(UserParamQuery param, Page<UserPo> page) {
         log.info("request: [user] - queryList param={}, page={}", param, page);
-        // todo shizy param校验
-        return super.page(page, new LambdaQueryWrapper<UserPo>()
-                .eq(UserPo::getUserName, param.getUserName())
-        );
+        return userMapper.queryListBySQL(param, page);
     }
 
     @Override

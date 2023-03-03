@@ -27,7 +27,8 @@ public class UserController {
     @RequestMapping(value = "/user/list", method = RequestMethod.POST)
     public JsonResult queryList(@RequestBody(required = true) UserParamQuery param) {
         try {
-            Page<UserPo> pageList = userService.queryList(param, param.getPage().getQueryPage());
+//            Page<UserPo> pageList = userService.queryList(param, param.getPage().getQueryPage());
+            Page<UserPo> pageList = userService.queryListBySQL(param, param.getPage().getQueryPage());
             return JsonResult.success(pageList);
         } catch (Exception e) {
             log.error(e.getMessage(), e);

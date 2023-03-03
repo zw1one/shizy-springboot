@@ -3,7 +3,7 @@
 <mapper namespace="com.example.user.mapper.UserMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.shizy.user.entity.UserPo">
+    <resultMap id="BaseResultMap" type="com.example.user.entity.UserPo">
         <result column="user_id" property="userId"/>
         <result column="user_account" property="userAccount"/>
         <result column="user_name" property="userName"/>
@@ -15,11 +15,22 @@
     </sql>
 
 
-    <!--这个默认生成的selectPage得删了，不然用selectPage就会用到这个，而不是通用的-->
+    <!--这个默认生成的selectPage得删了，不然调用BaseMapper.selectPage就会用到这个，而不是通用的-->
     <select id="selectPage" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"></include>
+        <include refid="Base_Column_List"/>
         from user
+    </select>
+
+    <select id="queryListBySQL" parameterType="com.example.user.entity.UserParamQuery" resultType="com.example.user.entity.UserPo">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        <where>
+            <if test="param.userName != null and param.userName != ''">
+                and user_name like #{param.userName}
+            </if>
+        </where>
     </select>
 
 </mapper>

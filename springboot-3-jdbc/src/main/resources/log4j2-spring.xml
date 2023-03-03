@@ -150,16 +150,15 @@
             <AppenderRef ref="errorJsonAppender" level="error"/>
         </Root>
 
-        <!--spring日志-->
-        <Logger name="org.springframework" level="debug"/>
-        <!--druid数据源日志-->
-        <Logger name="druid.sql.Statement" level="warn"/>
-        <!-- mybatis日志 -->
-        <Logger name="com.mybatis" level="warn"/>
-        <Logger name="org.hibernate" level="warn"/>
-        <Logger name="com.zaxxer.hikari" level="info"/>
-        <Logger name="org.quartz" level="info"/>
-        <Logger name="com.andya.demo" level="debug"/>
+<!--        下面这些好像都没生效 shizy 20230303-->
+<!--        &lt;!&ndash;spring日志&ndash;&gt;-->
+<!--        <Logger name="org.springframework" level="debug"/>-->
+<!--        &lt;!&ndash;druid数据源日志&ndash;&gt;-->
+<!--        <Logger name="druid.sql.Statement" level="warn"/>-->
+<!--        &lt;!&ndash; mybatis日志 &ndash;&gt;-->
+<!--        <Logger name="org.apache.ibatis.logging.stdout.StdOutImpl" level="debug"/>-->
+<!--        <Logger name="com.zaxxer.hikari" level="info"/>-->
+<!--        <Logger name="org.quartz" level="info"/>-->
     </Loggers>
 
 </Configuration>

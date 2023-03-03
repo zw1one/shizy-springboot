@@ -33,26 +33,16 @@ public class UserController {
     @Operation(summary = "user query list", description = "")
     @RequestMapping(value = "/user/list", method = RequestMethod.POST)
     public JsonResult<PageVo<UserPo>> queryList(@RequestBody(required = true) UserParamQuery param) {
-        try {
-//            Page<UserPo> pageList = userService.queryList(param, param.getPage().getQueryPage());
-            Page<UserPo> pageList = userService.queryListBySQL(param, param.getPage().getQueryPage());
-            return JsonResult.success(MyBeanUtils.copyProperties(pageList, new PageVo<>()));
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return JsonResult.fail(e.getMessage());
-        }
+//        Page<UserPo> pageList = userService.queryList(param, param.getPage().getQueryPage());
+        Page<UserPo> pageList = userService.queryListBySQL(param, param.getPage().getQueryPage());
+        return JsonResult.success(MyBeanUtils.copyProperties(pageList, new PageVo<>()));
     }
 
     @Operation(summary = "user query detail", description = "")
     @RequestMapping(value = "/user/{userId}", method = RequestMethod.POST)
     public JsonResult<UserVo> queryDetail(@Valid @RequestBody(required = true) UserParamDetail param) {
-        try {
-            UserVo userVo = userService.queryDetail(param.getUserId());
-            return JsonResult.success(userVo);
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return JsonResult.fail();
-        }
+        UserVo userVo = userService.queryDetail(param.getUserId());
+        return JsonResult.success(userVo);
     }
 //
 //    @Operation(summary = "user add", description = "")

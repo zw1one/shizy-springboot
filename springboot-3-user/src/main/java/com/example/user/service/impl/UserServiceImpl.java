@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.common.exception.MyException;
 import com.example.user.entity.*;
 import com.example.user.mapper.UserMapper;
 import com.example.user.service.UserService;
@@ -49,7 +50,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPo> implements 
     public UserVo queryDetail(String id) {
         log.info("request: [user] - queryDetail id={}", id);
         UserPo userPo = super.getById(id);
-        Optional.ofNullable(userPo).orElseThrow(() -> new RuntimeException("user is null"));
+        Optional.ofNullable(userPo).orElseThrow(() -> new MyException("user is null"));
         return MyBeanUtils.copyProperties(userPo, new UserVo());
     }
 
@@ -60,7 +61,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPo> implements 
         UserPo userPo = MyBeanUtils.copyProperties(param, new UserPo());
         userPo.setUserId(id);
         if (!super.save(userPo)) {
-            throw new RuntimeException("user save fail");
+            throw new MyException("user save fail");
         }
         return this.queryDetail(id);
     }
@@ -71,7 +72,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPo> implements 
         //todo shizy controller层判空id
         UserPo userPo = MyBeanUtils.copyProperties(param, new UserPo());
         if (!super.updateById(userPo)) {
-            throw new RuntimeException("user updateById fail");
+            throw new MyException("user updateById fail");
         }
         return this.queryDetail(param.getUserId());
     }
@@ -81,7 +82,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPo> implements 
         log.info("request: [user] - delete id={}", id);
         //todo shizy controller层判空id
         if (!super.removeById(id)) {
-            throw new RuntimeException("user removeById fail");
+            throw new MyException("user removeById fail");
         }
         return true;
     }
@@ -91,7 +92,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPo> implements 
         log.info("request: [user] - deleteBatch ids={}", ids);
         //todo shizy controller层判空id
         if (!super.removeBatchByIds(ids, 500)) {
-            throw new RuntimeException("user removeBatchByIds fail");
+            throw new MyException("user removeBatchByIds fail");
         }
         return true;
     }

@@ -23,20 +23,25 @@ public class JsonResult<T> implements Serializable {
 
     private T data;
 
+    public JsonResult(int code, String msg){
+        this.code = code;
+        this.msg = msg;
+    }
+
     public static <T> JsonResult<T> success() {
         return success(null);
     }
 
     public static <T> JsonResult<T> success(T data) {
-        return new JsonResult<T>(200, "success", data);
+        return new JsonResult<T>(JsonResultEnum.SUCCESS.getCode(), JsonResultEnum.SUCCESS.getMessage(), data);
     }
 
     public static <T> JsonResult<T> fail(String msg) {
-        return new JsonResult<T>(500, msg, null);
+        return new JsonResult<T>(JsonResultEnum.FAIL.getCode(), msg, null);
     }
 
     public static <T> JsonResult<T> fail() {
-        return new JsonResult<T>(500, "server process error!", null);
+        return new JsonResult<T>(JsonResultEnum.FAIL.getCode(), JsonResultEnum.FAIL.getMessage(), null);
     }
 
 }

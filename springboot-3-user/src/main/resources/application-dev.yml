@@ -21,3 +21,10 @@ mybatis-plus:
 #    map-underscore-to-camel-case: true
 #    cache-enabled: false
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 日志输出sql语句
+
+### alibaba druid
+spring.datasource.druid: # druid minitor
+  stat-view-servlet: # http://localhost:80/druid
+    enabled: true
+    login-username: admin
+    login-password: admin

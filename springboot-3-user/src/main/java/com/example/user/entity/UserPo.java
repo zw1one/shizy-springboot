@@ -20,7 +20,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("mapper/user")
+@TableName("user")
 public class UserPo implements Serializable {
 
     public static final long serialVersionUID = 1L;

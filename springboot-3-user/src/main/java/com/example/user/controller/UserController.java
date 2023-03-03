@@ -2,9 +2,13 @@ package com.example.user.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.common.json.JsonResult;
+import com.example.common.json.PageVo;
+import com.example.user.entity.UserParamDetail;
 import com.example.user.entity.UserParamQuery;
 import com.example.user.entity.UserPo;
+import com.example.user.entity.UserVo;
 import com.example.user.service.UserService;
+import com.example.utils.bean.MyBeanUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+
 
 @Slf4j
 @RestController
@@ -25,28 +32,28 @@ public class UserController {
 
     @Operation(summary = "user query list", description = "")
     @RequestMapping(value = "/user/list", method = RequestMethod.POST)
-    public JsonResult queryList(@RequestBody(required = true) UserParamQuery param) {
+    public JsonResult<PageVo<UserPo>> queryList(@RequestBody(required = true) UserParamQuery param) {
         try {
 //            Page<UserPo> pageList = userService.queryList(param, param.getPage().getQueryPage());
             Page<UserPo> pageList = userService.queryListBySQL(param, param.getPage().getQueryPage());
-            return JsonResult.success(pageList);
+            return JsonResult.success(MyBeanUtils.copyProperties(pageList, new PageVo<>()));
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return JsonResult.fail(e.getMessage());
         }
     }
 
-//    @Operation(summary = "user query detail", description = "")
-//    @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
-//    public JsonResult queryDetail(@PathVariable String userId) {
-//        try {
-//            UserVo userVo = userService.queryDetail(userId);
-//            return JsonResult.success(userVo);
-//        } catch (Exception e) {
-//            log.error(e.getMessage(), e);
-//            return JsonResult.fail();
-//        }
-//    }
+    @Operation(summary = "user query detail", description = "")
+    @RequestMapping(value = "/user/{userId}", method = RequestMethod.POST)
+    public JsonResult<UserVo> queryDetail(@Valid @RequestBody(required = true) UserParamDetail param) {
+        try {
+            UserVo userVo = userService.queryDetail(param.getUserId());
+            return JsonResult.success(userVo);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return JsonResult.fail();
+        }
+    }
 //
 //    @Operation(summary = "user add", description = "")
 //    @RequestMapping(value = "/user/add", method = RequestMethod.POST)

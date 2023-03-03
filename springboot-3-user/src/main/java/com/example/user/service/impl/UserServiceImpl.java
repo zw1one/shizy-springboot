@@ -48,7 +48,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPo> implements 
     @Override
     public UserVo queryDetail(String id) {
         log.info("request: [user] - queryDetail id={}", id);
-        //todo shizy controller层判空id
         UserPo userPo = super.getById(id);
         Optional.ofNullable(userPo).orElseThrow(() -> new RuntimeException("user is null"));
         return MyBeanUtils.copyProperties(userPo, new UserVo());

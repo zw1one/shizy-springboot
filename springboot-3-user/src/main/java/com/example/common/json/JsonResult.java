@@ -28,11 +28,6 @@ public class JsonResult<T> implements Serializable {
     }
 
     public static <T> JsonResult<T> success(T data) {
-        //处理PageVo
-        if(data instanceof Page){
-            return new JsonResult(200, "success", MyBeanUtils.copyProperties(data, new PageVo<>()));
-        }
-        //正常返回
         return new JsonResult<T>(200, "success", data);
     }
 

@@ -21,9 +21,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserParamQuery {
 
-    @Schema(description = "用户id", example = "123")
-    private String userId;
-
     private String userAccount;
 
     private String userName;

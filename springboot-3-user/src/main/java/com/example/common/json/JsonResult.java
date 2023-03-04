@@ -17,7 +17,7 @@ public class JsonResult<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private int code = 200;
+    private Integer code = 200;
 
     private String msg;
 

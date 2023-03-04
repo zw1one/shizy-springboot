@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 全局异常处理类
@@ -90,10 +91,24 @@ public class GlobalExceptionHandler {
     public JsonResult myExceptionHandler(MyException e) {
         log.error("", e);
         // 判断异常中是否有错误信息，如果存在就使用异常中的消息，否则使用默认消息
+        Integer code = JsonResultEnum.FAIL.getCode();
+        String message = JsonResultEnum.FAIL.getMessage();
         if (!StringUtils.isEmpty(e.getMessage())) {
-            return new JsonResult(JsonResultEnum.FAIL.getCode(), e.getMessage());
+            message = e.getMessage();
         }
-        return new JsonResult(JsonResultEnum.FAIL.getCode(), JsonResultEnum.FAIL.getMessage());
+        if (Objects.nonNull(code)) {
+            code = e.getCode();
+        }
+        return new JsonResult(code, message);
     }
 
 }
+
+
+
+
+
+
+
+
+

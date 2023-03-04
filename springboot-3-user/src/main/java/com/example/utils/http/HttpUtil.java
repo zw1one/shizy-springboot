@@ -170,7 +170,7 @@ public class HttpUtil {
         jsonMap.put("QueryString", request.getQueryString());
         jsonMap.put("Parameters", paramMap);
         //存在流数据则读取（POST）
-        if(request.getInputStream().isReady()){
+        if(!request.getInputStream().isFinished()){
             //这个流只能读一次 解决需重写HttpServletRequestWrapper
             jsonMap.put("InputStreamData", StreamUtil.read(request.getInputStream()));
         }

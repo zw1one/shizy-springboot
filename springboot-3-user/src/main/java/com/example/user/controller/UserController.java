@@ -38,6 +38,8 @@ public class UserController {
     @Operation(summary = "user query detail", description = "")
     @RequestMapping(value = "/user/{userId}", method = RequestMethod.POST)
     public JsonResult<UserVo> queryDetail(@Valid @RequestBody(required = true) UserParamId param) {
+//    @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
+//    public JsonResult<UserVo> queryDetail(@Valid UserParamId param) {
         UserVo userVo = userService.queryDetail(param.getUserId());
         return JsonResult.success(userVo);
     }

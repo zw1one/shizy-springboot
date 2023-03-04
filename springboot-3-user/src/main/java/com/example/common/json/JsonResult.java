@@ -23,7 +23,7 @@ public class JsonResult<T> implements Serializable {
 
     private T data;
 
-    public JsonResult(int code, String msg){
+    public JsonResult(Integer code, String msg){
         this.code = code;
         this.msg = msg;
     }

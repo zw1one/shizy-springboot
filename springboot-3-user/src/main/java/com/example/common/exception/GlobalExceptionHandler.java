@@ -91,14 +91,8 @@ public class GlobalExceptionHandler {
     public JsonResult myExceptionHandler(MyException e) {
         log.error("", e);
         // 判断异常中是否有错误信息，如果存在就使用异常中的消息，否则使用默认消息
-        Integer code = JsonResultEnum.FAIL.getCode();
-        String message = JsonResultEnum.FAIL.getMessage();
-        if (!StringUtils.isEmpty(e.getMessage())) {
-            message = e.getMessage();
-        }
-        if (Objects.nonNull(code)) {
-            code = e.getCode();
-        }
+        String message = StringUtils.isEmpty(e.getMessage()) ? JsonResultEnum.FAIL.getMessage() : e.getMessage();
+        Integer code = Objects.isNull(e.getCode()) ? JsonResultEnum.FAIL.getCode() : e.getCode();
         return new JsonResult(code, message);
     }
 

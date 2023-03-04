@@ -10,27 +10,33 @@ import javax.servlet.Filter;
 /**
  * 过滤器配置
  * <p>
- * 若使用@WebFilter注册过滤器，无法指定过滤器执行顺序，故使用config
+ * 使用@WebFilter注册过滤器，配置不如config方便
  */
 @Configuration
 public class FilterConfig {
 
     /**
-     * debug
+     * RequestBodyFilter 解决request.getInputStream()只能读一次的问题
      */
     @Bean
-    public Filter DebugFilter() {
-        return new DebugFilter();
-    }
-
-    @Bean
-    public FilterRegistrationBean filterRegistrationBean1() {
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
-        filterRegistrationBean.setFilter(DebugFilter());
+    public FilterRegistrationBean requestBodyFilterBean(){
+        FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
         filterRegistrationBean.addUrlPatterns("/*");
-        filterRegistrationBean.setOrder(1);//order的数值越小 则优先级越高
+        filterRegistrationBean.setOrder(1);// 设置优先级
+        filterRegistrationBean.setFilter(new RequestBodyFilter());// 绑定过滤器
         return filterRegistrationBean;
     }
 
+    /**
+     * requestInfoFilter 打印请求信息
+     */
+    @Bean
+    public FilterRegistrationBean requestInfoFilterBean() {
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+        filterRegistrationBean.setFilter(new RequestInfoFilterFilter());
+        filterRegistrationBean.addUrlPatterns("/*");
+        filterRegistrationBean.setOrder(2);//order的数值越小 则优先级越高
+        return filterRegistrationBean;
+    }
 
 }

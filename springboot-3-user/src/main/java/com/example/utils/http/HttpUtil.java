@@ -2,7 +2,6 @@ package com.example.utils.http;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.example.utils.format.FormatUtil;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -170,9 +169,70 @@ public class HttpUtil {
         jsonMap.put("RequestMethod", request.getMethod());
         jsonMap.put("QueryString", request.getQueryString());
         jsonMap.put("Parameters", paramMap);
-//        jsonMap.put("InputStreamData", StreamUtil.read(request.getInputStream()));//这个流只能读一次
+        //存在流数据则读取（POST）
+        if(request.getInputStream().isReady()){
+            //这个流只能读一次 解决需重写HttpServletRequestWrapper
+            jsonMap.put("InputStreamData", StreamUtil.read(request.getInputStream()));
+        }
 
-        return "\r\n" + FormatUtil.formatJson(JSONObject.toJSON(jsonMap).toString());
+        return "\r\n" + formatJson(JSONObject.toJSON(jsonMap).toString());
+    }
+
+    private static String formatJson(String jsonStr) {
+        if (null == jsonStr || "".equals(jsonStr))
+            return "";
+        StringBuilder sb = new StringBuilder();
+        char last = '\0';
+        char current = '\0';
+        int indent = 0;
+        boolean isInQuotationMarks = false;
+        for (int i = 0; i < jsonStr.length(); i++) {
+            last = current;
+            current = jsonStr.charAt(i);
+            switch (current) {
+                case '"':
+                    if (last != '\\') {
+                        isInQuotationMarks = !isInQuotationMarks;
+                    }
+                    sb.append(current);
+                    break;
+                case '{':
+                case '[':
+                    sb.append(current);
+                    if (!isInQuotationMarks) {
+                        sb.append('\n');
+                        indent++;
+                        addIndentBlank(sb, indent);
+                    }
+                    break;
+                case '}':
+                case ']':
+                    if (!isInQuotationMarks) {
+                        sb.append('\n');
+                        indent--;
+                        addIndentBlank(sb, indent);
+                    }
+                    sb.append(current);
+                    break;
+                case ',':
+                    sb.append(current);
+                    if (last != '\\' && !isInQuotationMarks) {
+                        sb.append('\n');
+                        addIndentBlank(sb, indent);
+                    }
+                    break;
+                default:
+                    sb.append(current);
+            }
+        }
+
+        return sb.toString();
+    }
+
+    private static void addIndentBlank(StringBuilder sb, int indent) {
+        for (int i = 0; i < indent; i++) {
+            sb.append('\t');
+        }
     }
 
 }

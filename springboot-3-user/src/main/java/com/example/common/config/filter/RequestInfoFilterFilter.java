@@ -9,18 +9,18 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-/**
- * 配置见FilterConfig.java
- */
-public class DebugFilter implements Filter {
+public class RequestInfoFilterFilter implements Filter {
 
-    private static final Logger logger = LoggerFactory.getLogger(DebugFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(RequestInfoFilterFilter.class);
 
 //    @Override
 //    public void init(FilterConfig filterConfig) throws ServletException {
 //
 //    }
 
+    /**
+     * 处理都在doFilter比较好计算请求时间
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 

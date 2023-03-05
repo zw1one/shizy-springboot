@@ -96,6 +96,13 @@ public class GlobalExceptionHandler {
         return new JsonResult(code, message);
     }
 
+    /**
+     * 用Exception来处理预期内的业务错误，不如直接返回jsonResult错误码效率高
+     * 因为try catch语句与生成异常堆栈时会有一定损耗
+     * 但通常该损害可以忽略不计，有大量异常抛出的情况再考虑优化
+     * 如此，在service中的返回值，便可以不关注jsonResult，仅考虑自身业务逻辑
+     */
+
 }
 
 

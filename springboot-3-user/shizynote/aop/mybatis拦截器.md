@@ -15,6 +15,11 @@ mybatis Interceptor
 mybatis Interceptor 拦截器使用
 https://cloud.tencent.com/developer/article/1858587
 https://developer.aliyun.com/article/1043956
+
+打印sql代码
+https://juejin.cn/post/6869587337874472974
+
+更新逻辑字段
 https://juejin.cn/post/7027633293684113421
 
 拦截器顺序

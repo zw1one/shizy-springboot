@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 拦截器 - 请求参数判断是否冗余
+ *
  * https://juejin.cn/post/6962053059241312293
  */
 public class RequestParamInterceptor extends HandlerInterceptorAdapter {

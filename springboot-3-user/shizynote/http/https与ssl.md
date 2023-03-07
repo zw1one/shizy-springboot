@@ -77,7 +77,80 @@ client -> server : 握手完成，使用AES进行加密通信
 
 在TLS场景中，公钥仅做加密，私钥仅做解密。
 
+#### nginx配置
+
+```
+1 下载ca证书到nginx服务器
+2 从ca证书中生成私钥+公钥 (一个ca证书仅有一对)
+3 在nginx中配置
+    ca证书路径
+    公钥私钥路径
+    session_id 会话缓存方式、时间(保存对称秘钥)
+```
+
 ---
+
+### 供票项目请求过程
+
+
+```plantUML
+@startuml
+
+title:供票-票交所对接加密方式
+
+== 供票请求票交所 ==
+
+participant 供票 as sb
+participant 票交所 as pjs
+
+sb -> pjs : 请求公钥
+note right: 票交所给出请求公钥接口
+pjs -> pjs : SM2生成公钥+私钥
+note right
+- 将公钥、私钥根据合作方编码保存
+- 每次调用该接口会新生成非对称秘钥，弃用旧秘钥
+    一个合作方仅保持一个生效秘钥
+end note
+
+pjs -> sb: 返回公钥
+note left : 将公钥保存在数据库
+sb -> sb: SM4生成对称秘钥
+note left
+使用对称秘钥是因为非对称秘钥加/解密效率低
+end note
+
+sb -> pjs : 调用业务接口
+note left
+在请求参数中，带上加密后的对称秘钥
+数据使用该对称秘钥加密
+end note
+
+pjs -> pjs : 解密数据
+note right
+1 获取合作方之前生成的私钥
+2 用私钥解密该对称秘钥
+3 用对称秘钥解密数据
+end note
+
+== 票交所请求供票 == 
+
+sb <- pjs : 请求公钥
+note left
+供票给出请求公钥接口
+    公钥+私钥已预先生成好放在配置文件中
+    是唯一一份，没有实时更换需求
+end note
+
+sb -> pjs : 返回公钥
+note right: 其他同上 
+
+@enduml
+```
+```
+项目中，使用nginx服务器安装ca证书，并配置加密方式。
+国密证书+sm2+sm4+sm3
+国际证书+ras+aes+sha256
+```
 
 ```
 国密

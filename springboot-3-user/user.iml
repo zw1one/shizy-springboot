@@ -116,6 +116,7 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:5.3.25" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.3.25" level="project" />
     <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus-generator:3.5.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.velocity:velocity-engine-core:2.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.12" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.16" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.15" level="project" />

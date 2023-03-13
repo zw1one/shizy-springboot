@@ -24,7 +24,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //从上往下就是执行顺序
-        registry.addInterceptor(new RequestParamInterceptor());
+//        registry.addInterceptor(new RequestParamInterceptor());
     }
 
 }

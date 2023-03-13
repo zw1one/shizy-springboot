@@ -29,6 +29,8 @@ public class RequestParamInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (handler instanceof HandlerMethod) {
+            //todo 这里得加一个注解 请求方法带有该注解的才执行这个拦截器
+
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             Class<?>[] parameterTypes = handlerMethod.getMethod().getParameterTypes();
             Map<String, Object> paramMap = getRequestParam(request);

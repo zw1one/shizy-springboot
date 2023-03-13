@@ -40,8 +40,19 @@ todo
 redis分布式锁
     自旋锁
     错误锁
+    todo
 
 redis缓存登录
     redis切面注解 自定义
 
 todo
+
+#### redis命令
+
+```
+查询所有当前库key
+keys *
+
+删除当前库所有key(刷新库)
+flushdb
+```

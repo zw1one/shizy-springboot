@@ -23,7 +23,7 @@ import java.util.Properties;
 
 @Slf4j
 @Intercepts({
-        @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class})
+        @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class})//这个update 是增删改的意思
 })
 public class CustomInterceptor implements Interceptor {
 
@@ -34,13 +34,13 @@ public class CustomInterceptor implements Interceptor {
         //sql类型
         SqlCommandType sqlCommandType = mappedStatement.getSqlCommandType();
         if (SqlCommandType.INSERT.equals(sqlCommandType)) {
-            //插入操作时，自动插入env
+            //插入操作时，自动插入create_time
             Field fieldCreate = object.getClass().getDeclaredField("create_time");
             fieldCreate.setAccessible(true);
             fieldCreate.set(object, new Date());
         }else{
             if (SqlCommandType.UPDATE.equals(sqlCommandType)) {
-                //update时，自动更新updated_at
+                //update时，自动更新updated_time
                 Field fieldUpdate = object.getClass().getDeclaredField("updated_time");
                 fieldUpdate.setAccessible(true);
                 fieldUpdate.set(object, new Date());

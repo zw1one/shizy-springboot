@@ -32,6 +32,9 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserPo> implements UserService {
 
+//    @Autowired
+//    private ExampleAutoConfig aa;
+
     @Autowired
     private UserMapper userMapper;
 

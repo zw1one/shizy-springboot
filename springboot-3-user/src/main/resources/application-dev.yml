@@ -28,3 +28,11 @@ spring.datasource.druid: # druid minitor
     enabled: true
     login-username: admin
     login-password: admin
+
+
+### config test
+config:
+  demo:
+    msg: zzz
+  tenant:
+    enable: true

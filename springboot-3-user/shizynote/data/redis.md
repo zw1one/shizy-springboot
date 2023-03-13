@@ -1,5 +1,8 @@
 # reids
 
+redis命令与基础数据类型
+https://www.runoob.com/redis/redis-tutorial.html
+
 #### spring-boot-starter-data-redis 
 
 ```

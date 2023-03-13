@@ -1,9 +1,17 @@
 spring:
+  # mysql
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&useSSL=false&zeroDateTimeBehavior=convertToNull
     username: root
     password: 123456
+  # redis
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    password:
+    timeout: 3000ms
 
 ### mybatis-plus
 mybatis-plus:
@@ -28,7 +36,6 @@ spring.datasource.druid: # druid minitor
     enabled: true
     login-username: admin
     login-password: admin
-
 
 ### config test
 config:

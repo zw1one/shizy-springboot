@@ -1,4 +1,4 @@
-package com.example.utils.bean;
+package com.example.utils.data;
 
 import org.springframework.beans.BeanUtils;
 

@@ -9,7 +9,7 @@ import com.example.common.exception.MyExceptionUtil;
 import com.example.user.entity.*;
 import com.example.user.mapper.UserMapper;
 import com.example.user.service.UserService;
-import com.example.utils.bean.MyBeanUtils;
+import com.example.utils.data.MyBeanUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

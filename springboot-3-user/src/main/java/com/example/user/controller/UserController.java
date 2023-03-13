@@ -5,7 +5,7 @@ import com.example.common.json.JsonResult;
 import com.example.common.json.PageVo;
 import com.example.user.entity.*;
 import com.example.user.service.UserService;
-import com.example.utils.bean.MyBeanUtils;
+import com.example.utils.data.MyBeanUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.sql.DataSource;
 import javax.validation.Valid;
 
 

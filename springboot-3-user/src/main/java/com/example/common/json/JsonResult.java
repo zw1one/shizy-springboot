@@ -1,7 +1,5 @@
 package com.example.common.json;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.utils.bean.MyBeanUtils;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
